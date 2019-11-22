@@ -344,8 +344,7 @@ class TwitchAPI(object):
                    'Client-ID': TWITCH_CLIENT_ID if not private else TWITCH_CLIENT_ID_PRIVATE}
 
         # OAuth tokens created from Streamlink's own client-id can't be used anymore on the private API (#2680)
-        # Since we don't know the origin of the provided OAuth token, we unfortunately need to disable all
-        if self.oauth_token and not private:
+        if self.oauth_token:
             headers["Authorization"] = "OAuth {}".format(self.oauth_token)
 
         res = self.session.http.get(url, params=params, headers=headers)
