@@ -140,6 +140,9 @@ Example
     player=mpv --cache 2048
     player-no-close
 
+    # Authenticate with Twitch
+    twitch-oauth-token=mytoken
+
 .. note::
     Full player paths are supported via configuration file options such as
     ``player="C:\mpv-x86_64\mpv"``
@@ -172,6 +175,15 @@ the name of each built-in plugin.
 
 Plugin specific usage
 ---------------------
+
+Authenticating with Twitch
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It's possible to access subscription content on Twitch by giving Streamlink
+access to your account.
+
+You need to extract OAuth token directly from the website using developer tools.
+
 
 Authenticating with Crunchyroll
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
