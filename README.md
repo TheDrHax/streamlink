@@ -1,3 +1,39 @@
+# About this fork
+
+Since Nov 2019 third-party apps can not access private Twitch APIs anymore ([issue #2680](https://github.com/streamlink/streamlink/issues/2680)). Because of that streamlink has removed support for OAuth tokens in [PR-2846](https://github.com/streamlink/streamlink/pull/2846). However, it is still possible to access private APIs by using first-party OAuth token that can be extracted from cookies.
+
+This fork reintroduces `--twitch-oauth-token` parameter into newer versions of streamlink.
+
+This change allows paid subscribers to watch and download private streams and VODs without ads.
+
+
+## Installation and configuration
+
+* Install this fork with pip (it will replace the original streamlink)
+
+```pip install git+https://github.com/TheDrHax/streamlink.git```
+
+* Extract OAuth token from Twitch
+  * Open [Twitch](https://twitch.tv) in your favorite browser
+  * Log in if you haven't already
+  * Open developer tools (RMB → Inspect element or F12)
+  * Type this command into JavaScript console: `cookies['auth-token']`
+  * Console will output a single string - your OAuth token
+  * **Warning**: Do **not** share your OAuth token - it grants almost full access to your account! I believe this is the reason why support for OAuth tokens was dropped in the original project.
+
+* Add `--twitch-oauth-token=YOUR_TOKEN` to your streamlink command
+
+* (optional) Add `twitch-oauth-token=YOUR_TOKEN` to your config file to avoid typing your token every time (see the docs below for more information)
+
+
+## Frequently asked questions
+
+* Q: Does OAuth token expire? If so, how long does it work for?
+
+I have been using the same token for more than a year. I think it will work as long as you don't log out from the website or change your password.
+
+----
+
 # [Streamlink][streamlink-website]
 
 [![Github build status][workflow-status-badge]][workflow-status]
