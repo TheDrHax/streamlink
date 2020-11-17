@@ -192,6 +192,13 @@ class TwitchAPI(object):
             "Client-ID": self.TWITCH_CLIENT_ID if not private else self.TWITCH_CLIENT_ID_PRIVATE
         })
 
+        # OAuth tokens created from Streamlink's own client-id can't be used anymore on the private API (#2680)
+        oauth_token = self.session.get_plugin_option("twitch", "oauth-token")
+        if oauth_token and private:
+            headers.update({
+                "Authorization": "OAuth {}".format(oauth_token)
+            })
+
         return self.session.http.request(method, url, data=data, params=params, headers=headers)
 
     def call(self, path, schema=None, **params):
@@ -390,7 +397,10 @@ class Twitch(Plugin):
         PluginArgument(
             "oauth-token",
             sensitive=True,
-            help=argparse.SUPPRESS
+            metavar="TOKEN",
+            help="""
+            An OAuth token to use for Twitch authentication.
+            """
         ),
         PluginArgument(
             "cookie",
